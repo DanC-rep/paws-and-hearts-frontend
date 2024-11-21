@@ -5,7 +5,7 @@ import { NavBar } from "./NavBar";
 
 export function RootLayout() {
    return (
-      <div>
+      <div className="flex flex-col h-screen">
          <Header />
          <NavBar />
          <Outlet />

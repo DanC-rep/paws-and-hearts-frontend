@@ -4,8 +4,11 @@ import PersonIcon from '@mui/icons-material/Person'
 import LoginIcon from '@mui/icons-material/Login'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../contexts/auth/useAuth'
 
 export function Header() {
+   const { accessToken } = useAuth()
+
    return (
       <AppBar position="static">
          <div className="flex flex-row items-center justify-between py-2 px-3">
@@ -17,12 +20,15 @@ export function Header() {
                <NavLink to="favorite">
                   <FavoriteIcon fontSize="large" />
                </NavLink>
-               <NavLink to="profile">
-                  <PersonIcon fontSize="large" />
-               </NavLink>
-               <NavLink to="login">
-                  <LoginIcon fontSize="large" />
-               </NavLink>
+               {accessToken ? (
+                  <NavLink to="profile">
+                     <PersonIcon fontSize="large" />
+                  </NavLink>
+               ) : (
+                  <NavLink to="login">
+                     <LoginIcon fontSize="large" />
+                  </NavLink>
+               )}
             </div>
          </div>
       </AppBar>

@@ -2,7 +2,6 @@ import {
    Button,
    CardContent,
    Checkbox,
-   FormControl,
    MenuItem,
    Select,
    Slider,
@@ -10,6 +9,7 @@ import {
 } from '@mui/material'
 import Card from '@mui/material/Card'
 import React from 'react'
+import { Form } from 'react-router-dom'
 
 export function SearchCard() {
    const [age, setAge] = React.useState<number[]>([1, 30])
@@ -22,7 +22,7 @@ export function SearchCard() {
       <Card sx={{ maxWidth: 500, minWidth: 400, borderRadius: 4, boxShadow: 4 }}>
          <CardContent>
             <p className="text-3xl font-medium">Поиск и фильтрация</p>
-            <FormControl fullWidth>
+            <Form>
                <div className="py-2">
                   <p className="text-lg">Дата добавления</p>
                   <TextField variant="outlined" size="small" fullWidth type="date" />
@@ -78,7 +78,7 @@ export function SearchCard() {
                <Button size="medium" variant="contained">
                   Применить
                </Button>
-            </FormControl>
+            </Form>
          </CardContent>
       </Card>
    )
