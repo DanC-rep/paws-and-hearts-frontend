@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "../components/RootLayout";
 import { MainPage } from "../pages/MainPage/MainPage";
+import { NotFoundPage } from "../pages/Errors/NotFoundPage";
+import { LoginPage } from "../pages/Login/LoginPage";
+import { ProfilePage } from "../pages/Profile/ProfilePage";
 
 export const router = createBrowserRouter([
    {
@@ -13,7 +16,7 @@ export const router = createBrowserRouter([
          },
          {
             path: 'login',
-            element: <div>Вход</div>,
+            element: <LoginPage />
          },
          {
             path: 'favorite',
@@ -21,7 +24,7 @@ export const router = createBrowserRouter([
          },
          {
             path: 'profile',
-            element: <div>Профиль</div>,
+            element: <ProfilePage />,
          },
          {
             path: 'volunteers',
@@ -32,5 +35,6 @@ export const router = createBrowserRouter([
             element: <div>Помощь животным</div>,
          },
       ],
+      errorElement: <NotFoundPage />
    },
 ])

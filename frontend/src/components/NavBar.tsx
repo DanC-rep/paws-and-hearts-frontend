@@ -27,10 +27,12 @@ export function NavBar() {
    }
 
    return (
-      <Tabs onChange={handleChange} value={value}>
-         <Tab label="Главная" icon={<HomeIcon fontSize="medium" />} iconPosition="start" />
-         <Tab label="Волонтеры" icon={<Diversity1Icon fontSize="medium" />} iconPosition="start" />
-         <Tab label="Помощь животным" icon={<VolunteerActivismIcon fontSize="medium" />} iconPosition="start" />
-      </Tabs>
+      <div>
+         <Tabs onChange={handleChange} value={value}>
+            <Tab label="Главная" icon={<HomeIcon fontSize="medium" />} iconPosition="start" />
+            <Tab label="Волонтеры" icon={<Diversity1Icon fontSize="medium" />} iconPosition="start" />
+            <Tab label="Помощь животным" icon={<VolunteerActivismIcon fontSize="medium" />} iconPosition="start" />
+         </Tabs>
+      </div>
    )
 }
