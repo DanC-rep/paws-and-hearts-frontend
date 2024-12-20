@@ -1,10 +1,12 @@
-import { Button, InputAdornment, TextField } from '@mui/material'
+import { Alert, Button, InputAdornment, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../contexts/auth/useAuth'
+import { Link, NavLink } from 'react-router-dom'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../shared/redux'
+import { authSelectors } from '../../modules/auth/authSlice'
+import { loginThunk } from '../../modules/auth/login/loginThunk'
 
 type LoginFields = {
    email: string
@@ -18,18 +20,15 @@ export function LoginPage() {
       formState: { errors },
    } = useForm<LoginFields>()
 
-   const { login, isError } = useAuth()
+   const dispatch = useAppDispatch()
 
-   const navigate = useNavigate()
+   const fetchStatus = useAppSelector(authSelectors.selectAuthFetchStatus)
+   const error = useAppSelector(authSelectors.selectLoginError)
 
    const [showPassword, setShowPassword] = useState(false)
 
    const onSubmit = async (data: LoginFields) => {
-      await login(data.email, data.password)
-
-      if (isError === false) {
-         navigate('/profile')
-      }
+      dispatch(loginThunk(data))
    }
 
    return (
@@ -60,16 +59,13 @@ export function LoginPage() {
                   size="medium"
                   label="Пароль"
                   className="mb-6 flex-1"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   fullWidth
                   slotProps={{
                      input: {
                         endAdornment: (
                            <InputAdornment position="end">
-                              <Button
-                                 onClick={() => setShowPassword(prev => !prev)}
-                                 style={{ minWidth: 0 }} // Убираем ширину кнопки
-                              >
+                              <Button onClick={() => setShowPassword(prev => !prev)} style={{ minWidth: 0 }}>
                                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                               </Button>
                            </InputAdornment>
@@ -77,6 +73,25 @@ export function LoginPage() {
                      },
                   }}
                />
+
+               <Button type="submit" disabled={fetchStatus === 'loading'} variant="contained">
+                  Войти
+               </Button>
+
+               {error && (
+                  <Alert
+                     sx={{
+                        width: '100%',
+                        maxWidth: '400px',
+                        wordWrap: 'break-word',
+                        whiteSpace: 'pre-line',
+                        alignSelf: 'center',
+                     }}
+                     variant="outlined"
+                     severity="error">
+                     {error}
+                  </Alert>
+               )}
             </form>
             <p className="pt-4">Ещё не зарегистрированы?</p>
             <Link to={'/'} className="text-blue-600 underline">
