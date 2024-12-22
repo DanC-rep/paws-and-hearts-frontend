@@ -1,6 +1,6 @@
 export type Error = {
-   code: string
-   message: string
+   errorCode: string
+   errorMessage: string
    type: ErrorType
    invalidField: string | undefined
 }

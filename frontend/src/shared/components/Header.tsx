@@ -4,10 +4,11 @@ import PersonIcon from '@mui/icons-material/Person'
 import LoginIcon from '@mui/icons-material/Login'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { NavLink } from 'react-router-dom'
-import { useAuth } from '../contexts/auth/useAuth'
+import { useAppSelector } from '../redux'
+import { authSelectors } from '../../modules/auth/authSlice'
 
 export function Header() {
-   const { accessToken } = useAuth()
+   const isAuthenticated = useAppSelector(authSelectors.selectIsAuthenticated)
 
    return (
       <AppBar position="static">
@@ -20,7 +21,7 @@ export function Header() {
                <NavLink to="favorite">
                   <FavoriteIcon fontSize="large" />
                </NavLink>
-               {accessToken ? (
+               {isAuthenticated ? (
                   <NavLink to="profile">
                      <PersonIcon fontSize="large" />
                   </NavLink>
